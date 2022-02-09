@@ -2,10 +2,18 @@ const Sequelize = require("sequelize");
 const connection = require("../database/database");
 
 
-Question = connection.define("questions", {
+const Question = connection.define("questions", {
     body:{
         type: Sequelize.STRING,
         allowNull: false
+    },
+    userId:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references:{
+            model: 'users',
+            key: 'id'
+        }
     }
 });
 

@@ -4,11 +4,12 @@
     <div class="container mt-2"  >
         <div class="card">
             <div class="card-header">
-                <h3>Fazer Pergunta</h3>
+                <h3>Fazer Login</h3>
             </div>
             <div class="card-body">
-                <form method="post" action="/savequestion">
-                    <input class="form-control" type="text" name="question" placeholder="Digite sua Pergunta"><br>
+                <form method="post" action="/authenticate">
+                    <input class="form-control" type="email" name="email" placeholder="Digite seu email"><br>
+                    <input type="password" class="form-control" name="password" placeholder="senha"><br>
                     <button type="submit" class="btn btn-success">Perguntar</button>
                 </form>
             </div>
