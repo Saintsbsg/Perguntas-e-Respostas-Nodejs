@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 
-const User = require("./User");
+const model = require("../Models/models");
 
 router.get("/signin", (req, res) =>{
     res.render("users/login")
@@ -12,7 +12,7 @@ router.post("/authenticate", (req, res) =>{
     let email = req.body.email;
     let pass = req.body.password;
 
-    User.findOne({
+    model.User.findOne({
         where:{
             email: email
         }
@@ -27,10 +27,10 @@ router.post("/authenticate", (req, res) =>{
                 }
                 res.redirect("/");
             }else{
-                res.redirect("/login");
+                res.redirect("/signin");
             }
         }else{
-            res.redirect("login");
+            res.redirect("signin");
         }
         
     })
@@ -48,7 +48,7 @@ router.post("/saveNewUser", (req, res) =>{
     let salt = bcrypt.genSaltSync(10);
     let hash = bcrypt.hashSync(pass, salt);
 
-    User.findOne({
+    model.User.findOne({
         where:{
             email: email
         }
@@ -56,7 +56,7 @@ router.post("/saveNewUser", (req, res) =>{
         if(user != undefined){
             res.redirect("/login");
         }else{
-            User.create({
+            model.User.create({
                 email: email,
                 name: name,
                 password: hash

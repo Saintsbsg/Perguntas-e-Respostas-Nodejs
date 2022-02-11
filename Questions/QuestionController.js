@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Question = require("./Question");
-const User = require("../Users/User");
+const model = require("../Models/models");
 const auth = require("../middlewares/auth")
 
 router.get("/ask", auth, (req, res) =>{
@@ -10,14 +9,14 @@ router.get("/ask", auth, (req, res) =>{
 
 
 router.post("/savequestion", auth, (req, res)=>{
-    User.findOne({
+    model.User.findOne({
         where:{
             id: req.session.user.id
         }
     }).then(user =>{
         let body = req.body.question;
 
-    Question.create({
+    model.Question.create({
         body: body,
         userId: user.id
     }).then(() =>{

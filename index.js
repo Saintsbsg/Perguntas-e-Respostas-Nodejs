@@ -4,9 +4,11 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 
 //database models
-const User = require("./Users/User");
+/*const User = require("./Users/User");
 const Question = require("./Questions/Question");
-const Answer = require("./Answers/Answer");
+const Answer = require("./Answers/Answer");*/
+
+const models = require("./Models/models")
 const connection = require("./database/database");
 
 //controllers
@@ -38,7 +40,17 @@ connection
          
 
 app.get("/", (req, res) =>{
-    res.render("index");
+    models.Question.findAll({
+        include:[{
+            model: User,
+            atributtes:['id', 'name']
+        }]
+    }).then(questions =>{
+        res.render("index", {
+            questions: questions
+        });
+    })
+    
 })
 
 app.listen(8280, (error) =>{
