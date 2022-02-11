@@ -14,6 +14,7 @@ const connection = require("./database/database");
 //controllers
 const UserController = require("./Users/UserController");
 const QuestionController = require("./Questions/QuestionController");
+const AnswerController = require("./Answers/AnswerController");
 
 
 
@@ -28,6 +29,7 @@ app.use(session({
 }));
 app.use("/", UserController);
 app.use("/", QuestionController);
+app.use("/", AnswerController);
 
 
 connection

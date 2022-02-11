@@ -21,6 +21,22 @@ User = connection.define("users", {
     },
     
 });
+const Question = connection.define("questions", {
+    body:{
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    userId:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references:{
+            model: 'users',
+            key: 'id'
+        },
+
+        
+    },
+});
 
 const Answer = connection.define("answers",{
     body:{
@@ -51,35 +67,23 @@ const Answer = connection.define("answers",{
     
 });
 
-const Question = connection.define("questions", {
-    body:{
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    userId:{
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references:{
-            model: 'users',
-            key: 'id'
-        },
-
-        
-    },
-});
 
 
 
 
-Answer.belongsTo(User,{foreignkey: 'userId'})
 Question.belongsTo(User, {foreignkey: 'userId'});
+Answer.belongsTo(User,{foreignkey: 'userId'})
+Answer.belongsTo(Question, {foreignkey: 'questionId'});
+Question.hasMany(Answer)
 
 
 
 
 User.sync({force: false}).then(()=>{});
-Answer.sync({force: false}).then(() =>{});
 Question.sync({force: false}).then(() =>{});
+Answer.sync({force: false}).then(() =>{});
+
+
 
 module.exports = {
     User,

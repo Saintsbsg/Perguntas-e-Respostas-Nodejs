@@ -1,0 +1,20 @@
+<%- include('../partials/header.ejs')%>
+<body>
+    <%- include('../partials/userNavbar.ejs')%>
+    <div class="container mt-2"  >
+        <div class="card">
+            <div class="card-header">
+                <h3>Responder</h3>
+            </div>
+            <div class="card-body">
+                <p><%= question.body %></p>
+                <hr>
+                <form method="post" action="/saveanswer">
+                    <input type="hidden" name="questionId" value="<%= question.id %>"><br>
+                    <input class="form-control" type="text" name="question"><br>
+                    <button type="submit" class="btn btn-success">Responder</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
